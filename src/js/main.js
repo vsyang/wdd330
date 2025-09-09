@@ -8,4 +8,3 @@ const element = document.querySelector(".product_list");
 const productList = new ProductList("Tents", dataSource, element);
 
 productList.inut();
-
