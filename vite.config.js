@@ -31,17 +31,17 @@ export default defineConfig({
     },
   },
   // Configure the plugin to copy the 'json' and 'images' directories to the build output
-  plugins: [
-    viteStaticCopy({
-      targets: [
-        {
-          src: "json",
-          dest: "",
-        },
-        { src: "images",
-          dest: "",
-        }
-      ],
-    }),
-  ]
+  // plugins: [
+  //   viteStaticCopy({
+  //     targets: [
+  //       {
+  //         src: "json",
+  //         dest: "",
+  //       },
+  //       { src: "images",
+  //         dest: "",
+  //       }
+  //     ],
+  //   }),
+  // ]
 });
