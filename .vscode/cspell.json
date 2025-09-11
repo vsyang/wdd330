@@ -1,0 +1,40 @@
+{
+  "dictionaryDefinitions": [
+    {
+      "name": "WDD330",
+      "path": "./dicts/wdd330.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "WDD330",
+    "en_US",
+    "softwareTerms",
+    "misc",
+    "companies",
+    "filetypes",
+    "html",
+    "css",
+    "node",
+    "npm",
+    "python"
+  ],
+  "caseSensitive": false,
+  "allowCompoundWords": true,
+  "ignoreRandomStrings": true,
+  "minWordLength": 4,
+  "version": "0.2",
+  "enabled": true,
+  "gitignoreRoot": "${workspaceRoot}",
+  "enabledFileTypes": {
+    "html": true,
+    "css": true,
+    "js": true,
+    "json": false,
+    "md": true,
+    "txt": false,
+    "yaml": false,
+    "yml": false
+  },
+  "ignorePaths": [".gitignore"]
+}
