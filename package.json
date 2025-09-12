@@ -1,26 +1,40 @@
 {
-  "name": "outside",
+  "name": "wdd330-team6-outside",
   "version": "2.0.0",
-  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "description": "WDD 330 SleepOutside project for BYU-Pathway Worldwide (Team 6)",
   "main": "main.js",
   "scripts": {
     "start": "vite",
     "build": "vite build --emptyOutDir",
     "lint": "eslint *.js src/**/*.js",
-    "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
+    "format": "prettier --ignore-path ./.gitignore --write '*.{html,json,js,ts,css}'",
     "test": "jest",
-    "dev": "vite",
-    "preview": "vite preview"
+    "dev": "npm run build && vite",
+    "preview": "npm run build && vite preview",
+    "spellcheck": "cspell --config ./.vscode/cspell.json \"*.{html,js,css,md}\"",
+    "prepare": "husky",
+    "setup-husky": "npx husky init"
   },
-  "author": "Shane Thompson",
+  "authors": [
+    "Shane Thompson",
+    "Vanessa Yang",
+    "Amon Roca",
+    "Oluwayemi Oni",
+    "Bryan Santana",
+    "James Eberhard",
+    "Bryan Hunter"
+  ],
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^8.10.0",
-    "eslint-plugin-import": "^2.29.1",
-    "jest": "^29.7.0",
-    "prettier": "^3.2.5",
-    "vite": "^7.1.4"
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "@eslint/compat": "^1.3.2",
+    "jest": "^30.1.3",
+    "prettier": "^3.6.2",
+    "vite": "^7.1.5",
+    "cspell": "^9.2.1",
+    "husky": "^9.1.7"
   },
   "babel": {
     "presets": [
