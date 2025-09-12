@@ -20,7 +20,7 @@ export default class ProductDetails {
     async addProductToCart() {
         // get cart items from local storage, or initialize to empty array
         let cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(product);
+        cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
     }
 
