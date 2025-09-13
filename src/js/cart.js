@@ -1,6 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-/* ---------------------- CART BADGE ---------------------- */
 function createCartBadge() {
     const cartLink = document.querySelector(".cart a");
     if (!cartLink) return;
@@ -34,7 +33,6 @@ function updateCartBadge(badge) {
     badge.style.display = totalCount > 0 ? "inline-block" : "none";
 }
 
-/* ---------------------- CART PAGE ---------------------- */
 function renderCartContents() {
     const cartItems = getLocalStorage("so-cart") || [];
     const htmlItems = cartItems.map(cartItemTemplate);
@@ -58,7 +56,6 @@ function cartItemTemplate(item) {
 `;
 }
 
-/* ---------------------- ADD PRODUCT TO CART ---------------------- */
 export function addProductToCart(product) {
     const cartItems = getLocalStorage("so-cart") || [];
 
@@ -79,7 +76,8 @@ export function addProductToCart(product) {
     renderCartContents();
 }
 
-/* ---------------------- INITIALIZE ---------------------- */
-const badge = createCartBadge();
-updateCartBadge(badge);
+export const badge = createCartBadge();
+export function refreshCartBadge() {
+  updateCartBadge(badge);
+}
 renderCartContents();

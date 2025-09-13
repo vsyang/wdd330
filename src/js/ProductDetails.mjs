@@ -17,14 +17,12 @@ export default class ProductDetails {
         //    .getElementById("addToCart")
         //    .addEventListener("click", this.addProductToCart);
        const btn = document.getElementById("addToCart");
-       if (btn) btn.addEventListener("click", this.addProductToCart());
+       if (btn) btn.addEventListener("click", this.addProductToCart);
     }
 
     async addProductToCart() {
         // get cart items from local storage, or initialize to empty array
         cartHelper(this.product);
-        let cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
     }
 
