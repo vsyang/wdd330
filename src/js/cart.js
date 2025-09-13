@@ -68,16 +68,24 @@ export function addProductToCart(product) {
     }
 
     setLocalStorage("so-cart", cartItems);
+    
+    refreshCartBadge();
 
-    // Update badge immediately
-    if (badge) updateCartBadge(badge);
-
-    // Re-render cart if on cart page
     renderCartContents();
 }
 
 export const badge = createCartBadge();
+
 export function refreshCartBadge() {
   updateCartBadge(badge);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  refreshCartBadge();
+});
+
+window.addEventListener("storage", () => {
+  refreshCartBadge();
+});
+
 renderCartContents();

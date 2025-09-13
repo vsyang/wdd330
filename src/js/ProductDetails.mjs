@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { addProductToCart as cartHelper } from "./cart";
+import { addProductToCart as cartHelper, refreshCartBadge } from "./cart";
 
 export default class ProductDetails {
 
@@ -23,7 +23,8 @@ export default class ProductDetails {
     async addProductToCart() {
         // get cart items from local storage, or initialize to empty array
         cartHelper(this.product);
-        setLocalStorage("so-cart", cartItems);
+        // setLocalStorage("so-cart", cartItems);
+        refreshCartBadge();
     }
 
     async renderProductDetails() {
