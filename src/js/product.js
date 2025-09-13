@@ -4,12 +4,12 @@ import ProductDetails from "./ProductDetails.mjs";
 
 // const dataSource = new ProductData("tents");
 
-/*function addProductToCart(product) {
+function addProductToCart(product) {
   // get cart items from local storage, or initialize to empty array
-  let cartItems = getLocalStorage("so-cart") || [];
+  let cartItems = getLocalStorage("so-cart");
   cartItems.push(product);
   setLocalStorage("so-cart", cartItems);
-}*/
+}
 
 const dataSource = new ProductData("tents");
 const productId = getParam("product");

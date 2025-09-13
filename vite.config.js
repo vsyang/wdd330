@@ -1,6 +1,5 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-// Import the plugin to copy static assets
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
@@ -13,30 +12,25 @@ export default defineConfig({
         main: resolve(__dirname, "src/index.html"),
         cart: resolve(__dirname, "src/cart/index.html"),
         checkout: resolve(__dirname, "src/checkout/index.html"),
-        product: resolve(__dirname, "src/product_pages/index.html",
-        ),
-        product2: resolve(__dirname, "src/product_pages/marmot-ajax-3.html"),
-        product3: resolve(
-          __dirname,
-          "src/product_pages/northface-alpine-3.html",
-        ),
-        product4: resolve(
-          __dirname,
-          "src/product_pages/northface-talus-4.html",
-        ),
-        product: resolve(__dirname, "src/product_pages/index.html"),
+        productIndex: resolve(__dirname, "src/product_pages/index.html"),
+        productMarmot: resolve(__dirname, "src/product_pages/marmot-ajax-3.html"),
+        productAlpine: resolve(__dirname, "src/product_pages/northface-alpine-3.html"),
+        productTalus: resolve(__dirname, "src/product_pages/northface-talus-4.html"),
       },
     },
   },
-  // Configure the plugin to copy the 'json' and 'images' directories to the build output
+
   plugins: [
     viteStaticCopy({
       targets: [
         {
-          src: "json",
-          dest: "",
+          src: "public/json/**/*",
+          dest: "json",
         },
-        { src: "images", dest: "" },
+        {
+          src: "public/images/**/*",
+          dest: "images",
+        },
       ],
     }),
   ],
