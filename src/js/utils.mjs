@@ -7,7 +7,10 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  if (!data) return [];
+  const parsed = JSON.parse(data);
+  return Array.isArray(parsed) ? parsed : [parsed];
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
@@ -27,11 +30,23 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
+export function renderListWithTemplate(
+  template,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  const safeList = Array.isArray(list) ? list : list ? [list] : [];
+
   if (clear) {
     parentElement.innerHTML = "";
   }
+
+  if (safeList.length === 0) {
+    return;
+  }
+
+  const htmlStrings = safeList.map(template);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }

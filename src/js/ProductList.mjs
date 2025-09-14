@@ -13,9 +13,6 @@ function productCardTemplate(product) {
     </li>`;
 }
 
-
-
-
 export default class ProductList {
     // Begin creating your ProductList module by writing the code for the constructor. There are more than one category of products that will need to be independently listed. In order to make the ProductList class as flexible and reusable as possible, the constructor should receive the following parameters:
     
@@ -43,4 +40,3 @@ export default class ProductList {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
 }
-
