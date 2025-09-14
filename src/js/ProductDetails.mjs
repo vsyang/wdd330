@@ -1,4 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { addProductToCart as cartHelper, refreshCartBadge } from "./cart";
 
 export default class ProductDetails {
 
@@ -12,16 +13,18 @@ export default class ProductDetails {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
         this.addProductToCart = this.addProductToCart.bind(this);
-        document
-            .getElementById("addToCart")
-            .addEventListener("click", this.addProductToCart);
+        // document
+        //    .getElementById("addToCart")
+        //    .addEventListener("click", this.addProductToCart);
+       const btn = document.getElementById("addToCart");
+       if (btn) btn.addEventListener("click", this.addProductToCart);
     }
 
     async addProductToCart() {
         // get cart items from local storage, or initialize to empty array
-        let cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
-        setLocalStorage("so-cart", cartItems);
+        cartHelper(this.product);
+        // setLocalStorage("so-cart", cartItems);
+        refreshCartBadge();
     }
 
     async renderProductDetails() {
@@ -37,9 +40,13 @@ function productDetailsTemplate(product) {
         productImage.src = product.Image;
         productImage.alt = product.NameWithoutBrand;
 
-        document.getElementById('productPrice').textContent = product.FinalPrice;
-        document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-        document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+        document.getElementById("productPrice").textContent = product.FinalPrice;
+        document.getElementById("productColor").textContent = product.Colors[0].ColorName;
+        document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
 
-        document.getElementById('addToCart').dataset.id = product.Id;
-    }
+        document.getElementById("addToCart").dataset.id = product.Id;
+    
+    const addBtn = document.getElementById("addToCart");
+    if (addBtn) addBtn.dataset.id = product.Id;
+}
+    
