@@ -52,6 +52,22 @@ function productDetailsTemplate(product) {
     productImage.src = product.Image;
     productImage.alt = product.NameWithoutBrand;
 
+    const price = document.getElementById('productPrice');
+    const originalPrice = product.SuggestedRetailPrice;
+    const finalPrice = product.FinalPrice;
+
+    let priceHTML = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
+
+    if (finalPrice < originalPrice) {
+        const discountPercent = Math.round(((originalPrice - finalPrice) / originalPrice) * 100);
+        priceHTML += `
+            <span class="original-price">$${originalPrice.toFixed(2)}</span>
+            <span class="discount">Save ${discountPercent}%</span>
+        `;
+    }
+
+    price.innerHTML = priceHTML;
+
     document.getElementById('productPrice').textContent = product.FinalPrice;
     document.getElementById('productColor').textContent = product.Colors[0].ColorName;
     document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
