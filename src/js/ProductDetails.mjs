@@ -1,4 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { addProductToCart as cartHelper, refreshCartBadge } from "./cart";
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -11,9 +12,11 @@ export default class ProductDetails {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
         this.addProductToCart = this.addProductToCart.bind(this);
-        document
-            .getElementById("addToCart")
-            .addEventListener("click", this.addProductToCart);
+        // document
+        //    .getElementById("addToCart")
+        //    .addEventListener("click", this.addProductToCart);
+       const btn = document.getElementById("addToCart");
+       if (btn) btn.addEventListener("click", this.addProductToCart);
     }
 
     async addProductToCart() {
@@ -29,6 +32,11 @@ export default class ProductDetails {
 
         cartItems.push(productToSave);
         setLocalStorage("so-cart", cartItems);
+      
+        // get cart items from local storage, or initialize to empty array
+        cartHelper(this.product);
+        // setLocalStorage("so-cart", cartItems);
+        refreshCartBadge();
     }
 
     async renderProductDetails() {
@@ -49,4 +57,7 @@ function productDetailsTemplate(product) {
     document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
 
     document.getElementById('addToCart').dataset.id = product.Id;
+    
+    const addBtn = document.getElementById("addToCart");
+    if (addBtn) addBtn.dataset.id = product.Id;
 }

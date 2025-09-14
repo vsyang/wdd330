@@ -1,9 +1,12 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
+import { refreshCartBadge } from "./cart.js";
 
-const dataSource = new ProductData("tents", "/json/tents.json");
+const dataSource = new ProductData("tents");
+const element = document.querySelector(".product-list");
 
-const listElement = document.querySelector("#product-list");
+const productList = new ProductList("Tents", dataSource, element);
 
-const productList = new ProductList("tents", dataSource, listElement);
 productList.init();
+
+refreshCartBadge();

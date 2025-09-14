@@ -2,8 +2,6 @@ import { getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-// const dataSource = new ProductData("tents");
-
 function addProductToCart(product) {
   // get cart items from local storage, or initialize to empty array
   let cartItems = getLocalStorage("so-cart");
@@ -18,12 +16,12 @@ const product = new ProductDetails(productId, dataSource);
 product.init();
 
 // add to cart button event handler
-// async function addToCartHandler(e) {
-//  const product = await dataSource.findProductById(e.target.dataset.id);
-//  addProductToCart(product);
-//}
+async function addToCartHandler(e) {
+  const product = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(product);
+}
 
 // add listener to Add to Cart button
-/*document
+document
   .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);*/
+  .addEventListener("click", addToCartHandler);

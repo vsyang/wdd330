@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "github.vscode-github-actions",
+    "herrmannplatz.npm-dependency-links",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "rvest.vs-code-prettier-eslint",
+    "aaron-bond.better-comments"
+  ]
+}

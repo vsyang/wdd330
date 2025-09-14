@@ -1,39 +1,91 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+
+function createCartBadge() {
+    const cartLink = document.querySelector(".cart a");
+    if (!cartLink) return;
+
+    const badge = document.createElement("span");
+    badge.style.position = "absolute";
+    badge.style.top = "-8px";
+    badge.style.right = "-8px";
+    badge.style.backgroundColor = "red";
+    badge.style.color = "white";
+    badge.style.fontSize = "0.8rem";
+    badge.style.fontWeight = "bold";
+    badge.style.borderRadius = "50%";
+    badge.style.padding = "2px 6px";
+    badge.style.minWidth = "18px";
+    badge.style.textAlign = "center";
+    badge.style.display = "none";
+    badge.className = "cart-badge";
+
+    cartLink.style.position = "relative";
+    cartLink.appendChild(badge);
+
+    return badge;
+}
+
+function updateCartBadge(badge) {
+    const cartItems = getLocalStorage("so-cart") || [];
+    const totalCount = cartItems.reduce((sum, item) => sum + (item.Quantity || 1), 0);
+
+    badge.textContent = totalCount;
+    badge.style.display = totalCount > 0 ? "inline-block" : "none";
+}
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart") || [];
-  console.log("cartItems from localStorage:", cartItems, " | Type:", typeof cartItems);
-
-  const container = document.querySelector(".product-list");
-  if (!container) {
-    console.warn("⚠️ Element .product-list not found in DOM.");
-    return;
-  }
-
-  if (!Array.isArray(cartItems) || cartItems.length === 0) {
-    container.innerHTML = "<p>Your cart is empty.</p>";
-    return;
-  }
-
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  container.innerHTML = htmlItems.join("");
+    const cartItems = getLocalStorage("so-cart") || [];
+    const htmlItems = cartItems.map(cartItemTemplate);
+    const productListEl = document.querySelector(".product-list");
+    if (productListEl) productListEl.innerHTML = htmlItems.join("");
 }
-
-document.addEventListener("DOMContentLoaded", renderCartContents);
 
 function cartItemTemplate(item) {
-  return `<li class="cart-card divider">
-    <a href="#" class="cart-card__image">
-      <img
-        src="${item.Image}"
-        alt="${item.Name}"
-      />
-    </a>
-    <a href="#">
-      <h2 class="card__name">${item.Name}</h2>
-    </a>
-    <p class="cart-card__color">${item.Color}</p>
-    <p class="cart-card__quantity">qty: 1</p>
-    <p class="cart-card__price">$${item.FinalPrice}</p>
-  </li>`;
+    return `
+<li class="cart-card divider">
+  <a href="#" class="cart-card__image">
+    <img src="${item.Image}" alt="${item.NameWithoutBrand}" />
+  </a>
+  <a href="#">
+    <h2 class="card__name">${item.NameWithoutBrand}</h2>
+  </a>
+  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
+  <p class="cart-card__price">$${item.FinalPrice}</p>
+</li>
+`;
 }
+
+export function addProductToCart(product) {
+    const cartItems = getLocalStorage("so-cart") || [];
+
+    const existingItem = cartItems.find(item => item.Id === product.Id);
+    if (existingItem) {
+        existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+    } else {
+        product.Quantity = 1;
+        cartItems.push(product);
+    }
+
+    setLocalStorage("so-cart", cartItems);
+    
+    refreshCartBadge();
+
+    renderCartContents();
+}
+
+export const badge = createCartBadge();
+
+export function refreshCartBadge() {
+  updateCartBadge(badge);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  refreshCartBadge();
+});
+
+window.addEventListener("storage", () => {
+  refreshCartBadge();
+});
+
+renderCartContents();
