@@ -203,6 +203,31 @@ button {
   width: 100%;
 }
 
+
+.final-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: green;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: red;
+    margin-left: 10px;
+}
+
+.discount {
+    background-color: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+
+
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;

@@ -8,7 +8,7 @@ export default class ProductDetails {
         this.product = {};
     }
 
-   async init() {
+    async init() {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
         this.addProductToCart = this.addProductToCart.bind(this);
@@ -30,16 +30,31 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-        document.querySelector("h2").textContent = product.Brand.Name;
-        document.querySelector("h3").textContent = product.NameWithoutBrand;
+    document.querySelector("h2").textContent = product.Brand.Name;
+    document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-        const productImage = document.getElementById('productImage');
-        productImage.src = product.Image;
-        productImage.alt = product.NameWithoutBrand;
+    const productImage = document.getElementById('productImage');
+    productImage.src = product.Image;
+    productImage.alt = product.NameWithoutBrand;
 
-        document.getElementById('productPrice').textContent = product.FinalPrice;
-        document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-        document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+    const price = document.getElementById('productPrice');
+    const originalPrice = product.SuggestedRetailPrice;
+    const finalPrice = product.FinalPrice;
 
-        document.getElementById('addToCart').dataset.id = product.Id;
+    let priceHTML = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
+
+    if (finalPrice < originalPrice) {
+        const discountPercent = Math.round(((originalPrice - finalPrice) / originalPrice) * 100);
+        priceHTML += `
+            <span class="original-price">$${originalPrice.toFixed(2)}</span>
+            <span class="discount">Save ${discountPercent}%</span>
+        `;
     }
+
+    price.innerHTML = priceHTML;
+
+    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
+    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+
+    document.getElementById('addToCart').dataset.id = product.Id;
+}
