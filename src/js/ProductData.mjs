@@ -6,18 +6,22 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {   //class called ProductData - default export
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
+export default class ProductData {
+  constructor(type, jsonPath = "./js/public/json/tents.json") {
+    this.type = type;
+    this.jsonPath = jsonPath;
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
+
+  async getData() {
+    try {
+      const response = await fetch(this.jsonPath);
+      if (!response.ok) throw new Error(`Erro ao carregar dados: ${response.status}`);
+      const data = await response.json();
+      console.log("Produtos carregados:", data);
+      return data.filter(product => product.type === this.type);
+    } catch (err) {
+      console.error("Erro em ProductData.getData:", err);
+      return [];
+    }
   }
 }

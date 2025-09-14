@@ -2,11 +2,9 @@ import { getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-
-
 function addProductToCart(product) {
   // get cart items from local storage, or initialize to empty array
-  let cartItems = getLocalStorage("so-cart") || [];
+  let cartItems = getLocalStorage("so-cart");
   cartItems.push(product);
   setLocalStorage("so-cart", cartItems);
 }

@@ -1,7 +1,5 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-// Import the plugin to copy static assets
-//import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   root: "src/",
@@ -17,16 +15,4 @@ export default defineConfig({
       },
     },
   },
-  // Configure the plugin to copy the 'json' and 'images' directories to the build output
-  //plugins: [
-  //  viteStaticCopy({
-  //    targets: [
-  //      {
-  //        src: "json",
-  //        dest: "",
-  //      },
-  //      { src: "images", dest: "" },
-   //   ],
-   // }),
-  //],
 });
