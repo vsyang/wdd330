@@ -11,15 +11,15 @@ export default class ProductDetails {
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
-        this.addProductToCart = this.addProductToCart.bind(this);
+       /* this.addProductToCart = this.addProductToCart.bind(this);
         // document
         //    .getElementById("addToCart")
         //    .addEventListener("click", this.addProductToCart);
        const btn = document.getElementById("addToCart");
-       if (btn) btn.addEventListener("click", this.addProductToCart);
+       if (btn) btn.addEventListener("click", this.addProductToCart);*/
     }
 
-    async addProductToCart() {
+    /*async addProductToCart() {
         let cartItems = getLocalStorage("so-cart");
 
         const productToSave = {
@@ -37,7 +37,7 @@ export default class ProductDetails {
         cartHelper(this.product);
         // setLocalStorage("so-cart", cartItems);
         refreshCartBadge();
-    }
+    }*/
 
     async renderProductDetails() {
         productDetailsTemplate(this.product);
@@ -56,24 +56,26 @@ function productDetailsTemplate(product) {
     const originalPrice = product.SuggestedRetailPrice;
     const finalPrice = product.FinalPrice;
 
-    let priceHTML = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
+    let priceHtml = "";
 
     if (finalPrice < originalPrice) {
         const discountPercent = Math.round(((originalPrice - finalPrice) / originalPrice) * 100);
-        priceHTML += `
+        priceHtml = `
             <span class="original-price">$${originalPrice.toFixed(2)}</span>
             <span class="discount">Save ${discountPercent}%</span>
+            <span class="final-price">$${finalPrice.toFixed(2)}</span>
         `;
+    } else {
+        priceHtml = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
     }
 
-    price.innerHTML = priceHTML;
+    price.innerHTML = priceHtml;
 
-    document.getElementById('productPrice').textContent = product.FinalPrice;
     document.getElementById('productColor').textContent = product.Colors[0].ColorName;
     document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
 
-    document.getElementById('addToCart').dataset.id = product.Id;
+    //document.getElementById('addToCart').dataset.id = product.Id;
     
-    const addBtn = document.getElementById("addToCart");
-    if (addBtn) addBtn.dataset.id = product.Id;
+    /*const btn = document.getElementById("addToCart");
+    if (btn) btn.addEventListener("click", this.addProductToCart);*/
 }

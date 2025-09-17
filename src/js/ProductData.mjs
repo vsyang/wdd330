@@ -7,9 +7,9 @@ function convertToJson(res) {
 }
 
 export default class ProductData {
-  constructor(type, jsonPath = "./js/public/json/tents.json") {
-    this.type = type;
-    this.jsonPath = jsonPath;
+  constructor(category) {
+    this.category = category;
+    this.jsonPath = `../json/${this.category}.json`;
   }
 
   async getData() {
@@ -23,5 +23,9 @@ export default class ProductData {
       console.error("Erro em ProductData.getData:", err);
       return [];
     }
+  }
+  async findProductById(id) {
+    const products = await this.getData();
+    return products.find((item) => item.Id == id);
   }
 }
