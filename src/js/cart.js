@@ -4,39 +4,39 @@ function createCartBadge() {
     const cartLink = document.querySelector(".cart a");
     if (!cartLink) return;
 
-    const badge = document.createElement("span");
-    badge.style.position = "absolute";
-    badge.style.top = "-8px";
-    badge.style.right = "-8px";
-    badge.style.backgroundColor = "red";
-    badge.style.color = "white";
-    badge.style.fontSize = "0.8rem";
-    badge.style.fontWeight = "bold";
-    badge.style.borderRadius = "50%";
-    badge.style.padding = "2px 6px";
-    badge.style.minWidth = "18px";
-    badge.style.textAlign = "center";
-    badge.style.display = "none";
-    badge.className = "cart-badge";
+    const badgeE1 = document.createElement("span");
+    badgeE1.style.position = "absolute";
+    badgeE1.style.top = "-8px";
+    badgeE1.style.right = "-8px";
+    badgeE1.style.backgroundColor = "red";
+    badgeE1.style.color = "white";
+    badgeE1.style.fontSize = "0.8rem";
+    badgeE1.style.fontWeight = "bold";
+    badgeE1.style.borderRadius = "50%";
+    badgeE1.style.padding = "2px 6px";
+    badgeE1.style.minWidth = "18px";
+    badgeE1.style.textAlign = "center";
+    badgeE1.style.display = "none";
+    badgeE1.className = "cart-badge";
 
     cartLink.style.position = "relative";
-    cartLink.appendChild(badge);
+    cartLink.appendChild(badgeE1);
 
-    return badge;
+    return badgeE1;
 }
 
-function updateCartBadge(badge) {
+function updateCartBadge(cartBadge) {
     const cartItems = getLocalStorage("so-cart") || [];
     const totalCount = cartItems.reduce((sum, item) => sum + (item.Quantity || 1), 0);
 
-    badge.textContent = totalCount;
-    badge.style.display = totalCount > 0 ? "inline-block" : "none";
+    cartBadge.textContent = totalCount;
+    cartBadge.style.display = totalCount > 0 ? "inline-block" : "none";
 }
 
 function renderCartContents() {
     const cartItems = getLocalStorage("so-cart") || [];
     const htmlItems = cartItems.map(cartItemTemplate);
-    const productListEl = document.querySelector(".product-list");
+    const productListEl = document.querySelector(".cart-list");
     if (productListEl) productListEl.innerHTML = htmlItems.join("");
 }
 
