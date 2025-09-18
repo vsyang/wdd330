@@ -1,3 +1,4 @@
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -18,7 +19,7 @@ export default class ProductData {
       if (!response.ok) throw new Error(`Erro ao carregar dados: ${response.status}`);
       const data = await response.json();
       console.log("Produtos carregados:", data);
-      return data.filter(product => product.type === this.type);
+      return data;
     } catch (err) {
       console.error("Erro em ProductData.getData:", err);
       return [];

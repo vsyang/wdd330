@@ -1,3 +1,4 @@
+
 import { renderListWithTemplate } from "./utils.mjs";
 
 // Create a template function that will simply return a template literal string for each of the templates needed. At the top of your ProductList module add a function for a productCardTemplate(product). You can use the current HTML in the /index.html file as your starting point.

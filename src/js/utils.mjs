@@ -50,3 +50,42 @@ export function renderListWithTemplate(
   const htmlStrings = safeList.map(template);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function renderWithTemplate(
+  template,
+  parentElement,
+  data,
+  callback
+) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+  /*const safeList = Array.isArray(list) ? list : list ? [list] : [];
+
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+
+  if (safeList.length === 0) {
+    return;
+  }*/
+
+//#8  Add a function to the utils.mjs named loadTemplate.  
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+
+//#9 Add a function to the utils.mjs named loadHeaderFooter
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerDisplay = document.querySelector("#main-header");
+  renderWithTemplate(headerTemplate, headerDisplay);
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerDisplay = document.querySelector("#main-footer");
+  renderWithTemplate(footerTemplate, footerDisplay);
+
+}
