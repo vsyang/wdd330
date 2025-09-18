@@ -1,8 +1,11 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
 
 function createCartBadge() {
     const cartLink = document.querySelector(".cart a");
-    if (!cartLink) return;
+    if (!cartLink) return null;
 
     const badgeE1 = document.createElement("span");
     badgeE1.style.position = "absolute";
@@ -26,6 +29,7 @@ function createCartBadge() {
 }
 
 function updateCartBadge(cartBadge) {
+  if (!cartBadge) return;
     const cartItems = getLocalStorage("so-cart") || [];
     const totalCount = cartItems.reduce((sum, item) => sum + (item.Quantity || 1), 0);
 
@@ -68,7 +72,7 @@ export function addProductToCart(product) {
     }
 
     setLocalStorage("so-cart", cartItems);
-    
+
     refreshCartBadge();
 
     renderCartContents();
@@ -77,15 +81,17 @@ export function addProductToCart(product) {
 export const badge = createCartBadge();
 
 export function refreshCartBadge() {
-  updateCartBadge(badge);
+  if (window.cartBadge) {
+    updateCartBadge(window.cartBadge);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+async function initCart() {
+  await loadHeaderFooter();
+  window.cartBadge = createCartBadge();
   refreshCartBadge();
-});
+  renderCartContents();
+  window.addEventListener("storage", refreshCartBadge);
+}
 
-window.addEventListener("storage", () => {
-  refreshCartBadge();
-});
-
-renderCartContents();
+initCart();
