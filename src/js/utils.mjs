@@ -51,6 +51,13 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
 //#9 Add a function to the utils.mjs named loadHeaderFooter
 export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate("../partials/header.html");

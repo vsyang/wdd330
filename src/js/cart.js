@@ -63,23 +63,21 @@ export function addProductToCart(product) {
   const cartItems = getLocalStorage("so-cart") || [];
   const existingItem = cartItems.find(item => item.Id === product.Id);
   if (existingItem) {
-    existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+    existingItem.Quantity = (existingItem.Quantity || 1) + 1; //quantity added here
   } else {
     product.Quantity = 1;
     cartItems.push(product);
   }
   setLocalStorage("so-cart", cartItems);
   refreshCartBadge();
-  renderCartContents(); // no-op if not on cart page
+  renderCartContents();
 }
 
 export function refreshCartBadge() {
-  // Create if missing (e.g., header just got injected)
   if (!window.cartBadge) window.cartBadge = createCartBadge();
   updateCartBadge(window.cartBadge);
 }
 
-// After DOM is ready (and header likely injected), build badge + render cart
 function init() {
   window.cartBadge = createCartBadge();
   refreshCartBadge();
