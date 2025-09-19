@@ -1,63 +1,56 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { addProductToCart as cartHelper, refreshCartBadge } from "./cart";
+import ProductData from "./ProductData.mjs";
+import { addProductToCart, refreshCartBadge } from "./cart.js";
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
         this.productId = productId;
         this.dataSource = dataSource;
-        this.product = {};
+        this.product = null;
     }
 
     async init() {
-        this.product = await this.dataSource.findProductById(this.productId);
+        this.product = await this.dataSource.findProductByName(this.productId);
+        if (!this.product) return;
+
         this.renderProductDetails();
-        this.addProductToCart = this.addProductToCart.bind(this);
-        // document
-        //    .getElementById("addToCart")
-        //    .addEventListener("click", this.addProductToCart);
-       const btn = document.getElementById("addToCart");
-       if (btn) btn.addEventListener("click", this.addProductToCart);
+
+        const btn = document.getElementById("addToCart");
+        if (btn) {
+            btn.addEventListener("click", () => {
+                this.addProductToCart();
+            });
+        }
     }
 
-    async addProductToCart() {
-        let cartItems = getLocalStorage("so-cart");
+    addProductToCart() {
+        if (!this.product) return;
 
         const productToSave = {
             Id: this.product.Id,
             Image: this.product.Image,
-            Name: `${this.product.Brand.Name} ${this.product.NameWithoutBrand}`,
-            Color: this.product.Colors[0].ColorName,
+            Name: `${this.product.Brand?.Name || ""} ${this.product.NameWithoutBrand || ""}`.trim(),
+            Color: this.product.Colors?.[0]?.ColorName || "",
             FinalPrice: this.product.FinalPrice
         };
 
-        cartItems.push(productToSave);
-        setLocalStorage("so-cart", cartItems);
-      
-        // get cart items from local storage, or initialize to empty array
-        cartHelper(this.product);
-        // setLocalStorage("so-cart", cartItems);
+        addProductToCart(productToSave);
+
         refreshCartBadge();
     }
 
-    async renderProductDetails() {
-        productDetailsTemplate(this.product);
+    renderProductDetails() {
+        if (!this.product) return;
+
+        const detailSection = document.getElementById("product-detail");
+        if (detailSection) detailSection.style.display = "block";
+
+        const product = this.product;
+        document.getElementById("productBrand").textContent = product.Brand?.Name || "";
+        document.getElementById("productName").textContent = product.NameWithoutBrand || "";
+        document.getElementById("productImage").src = product.Image || "";
+        document.getElementById("productImage").alt = product.NameWithoutBrand || "";
+        document.getElementById("productPrice").textContent = `$${product.FinalPrice || ""}`;
+        document.getElementById("productColor").textContent = product.Colors?.[0]?.ColorName || "";
+        document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple || "";
     }
-}
-
-function productDetailsTemplate(product) {
-    document.querySelector("h2").textContent = product.Brand.Name;
-    document.querySelector("h3").textContent = product.NameWithoutBrand;
-
-    const productImage = document.getElementById('productImage');
-    productImage.src = product.Image;
-    productImage.alt = product.NameWithoutBrand;
-
-    document.getElementById('productPrice').textContent = product.FinalPrice;
-    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
-
-    document.getElementById('addToCart').dataset.id = product.Id;
-    
-    const addBtn = document.getElementById("addToCart");
-    if (addBtn) addBtn.dataset.id = product.Id;
 }

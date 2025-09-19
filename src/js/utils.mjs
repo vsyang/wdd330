@@ -12,19 +12,22 @@ export function getLocalStorage(key) {
   const parsed = JSON.parse(data);
   return Array.isArray(parsed) ? parsed : [parsed];
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
-    callback();
+    callback(event);
   });
   qs(selector).addEventListener("click", callback);
 }
 
+// get parameter from URL
 export function getParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
@@ -49,4 +52,12 @@ export function renderListWithTemplate(
 
   const htmlStrings = safeList.map(template);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+// render a list of products into a parent element using a template callback
+export function renderProductList(list, parentElement, templateCallback) {
+  parentElement.innerHTML = ""; //
+  list.forEach(item => {
+    parentElement.innerHTML += templateCallback(item);
+  });
 }

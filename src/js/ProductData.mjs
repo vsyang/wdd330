@@ -1,13 +1,5 @@
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}
-
 export default class ProductData {
-  constructor(type, jsonPath = "./js/public/json/tents.json") {
+  constructor(type, jsonPath = new URL("../public/json/tents.json", import.meta.url).href) {
     this.type = type;
     this.jsonPath = jsonPath;
   }
@@ -15,13 +7,24 @@ export default class ProductData {
   async getData() {
     try {
       const response = await fetch(this.jsonPath);
-      if (!response.ok) throw new Error(`Erro ao carregar dados: ${response.status}`);
+      if (!response.ok) throw new Error(`Error loading data: ${response.status}`);
       const data = await response.json();
-      console.log("Produtos carregados:", data);
-      return data.filter(product => product.type === this.type);
+      console.log("Products loaded:", data);
+      return Array.isArray(data) ? data : [];
     } catch (err) {
-      console.error("Erro em ProductData.getData:", err);
+      console.error("Error in ProductData.getData:", err);
       return [];
     }
+  }
+
+  async findProductByName(name) {
+    const data = await this.getData();
+    const lower = name.toLowerCase();
+    return data.find(p => p.Name.toLowerCase() === lower);
+  }
+
+  async findProductById(id) {
+    const data = await this.getData();
+    return data.find(p => String(p.Id) === String(id));
   }
 }

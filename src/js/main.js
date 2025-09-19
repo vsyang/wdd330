@@ -2,11 +2,19 @@ import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { refreshCartBadge } from "./cart.js";
 
-const dataSource = new ProductData("tents");
-const element = document.querySelector(".product-list");
+document.addEventListener("DOMContentLoaded", async () => {
+    
+    const element = document.querySelector("#product-list");
+    if (!element) return;
 
-const productList = new ProductList("Tents", dataSource, element);
+    const dataSource = new ProductData("tents");
 
-productList.init();
+    const productList = new ProductList("tents", dataSource, element);
+    try {
+        await productList.init();
+    } catch (err) {
+        console.error("Erro ao inicializar ProductList:", err);
+    }
 
-refreshCartBadge();
+    refreshCartBadge();
+});
