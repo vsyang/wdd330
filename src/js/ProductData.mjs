@@ -1,4 +1,4 @@
-
+const baseURL = import.meta.env.VITE_SERVER_URL
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -8,25 +8,20 @@ function convertToJson(res) {
 }
 
 export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.jsonPath = `/json/${this.category}.json`;
-  }
+  constructor() { 
+    
+   }
 
-  async getData() {
-    try {
-      const response = await fetch(this.jsonPath);
-      if (!response.ok) throw new Error(`Erro ao carregar dados: ${response.status}`);
-      const data = await response.json();
-      console.log("Produtos carregados:", data);
-      return data;
-    } catch (err) {
-      console.error("Erro em ProductData.getData:", err);
-      return [];
-    }
-  }
+  async getData(category) {
+      const response = await fetch(`${baseURL}products/search/${category}`);
+      const data = await convertToJson(response);
+      return data.Result;
+    } 
+  
   async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id == id);
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    return data.Result;
+    //return products.find((item) => item.Id === id);
   }
 }

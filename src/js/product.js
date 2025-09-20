@@ -10,8 +10,10 @@ import { addProductToCart } from "./cart.js";
   setLocalStorage("so-cart", cartItems);
 }*/
 
-const dataSource = new ProductData("tents");
-const productId = getParam("product");
+const dataSource = new ProductData();
+const productId = getParam("id");
+
+
 
 const productDetails = new ProductDetails(productId, dataSource);
 productDetails.init();

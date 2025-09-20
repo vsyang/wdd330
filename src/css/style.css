@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -205,29 +205,53 @@ button {
 
 
 .final-price {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: green;
 }
 
 .original-price {
-    text-decoration: line-through;
-    color: red;
-    margin-left: 10px;
+  text-decoration: line-through;
+  color: red;
+  margin-left: 10px;
 }
 
 .discount {
-    background-color: #ffcc00;
-    color: #000;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 10px;
-    text-align: center;
+  background-color: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: 10px;
+  text-align: center;
 }
 
+.category-selection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+}
 
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
 
+.category-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.category-card:hover {
+  transform: scale(1.09);
+  transition: transform 0.2s ease;
+}
 
 /* Start cart list card styles */
 .cart-card {

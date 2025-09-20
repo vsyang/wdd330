@@ -20,11 +20,13 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-    document.querySelector("h2").textContent = product.Brand.Name;
-    document.querySelector("h3").textContent = product.NameWithoutBrand;
+    document.getElementById("productBrand").textContent = product.Brand.Name;
+    document.getElementById("productName").textContent = product.NameWithoutBrand;
+    //document.querySelector("productBrand").textContent = product.Brand.Name;
+    //document.querySelector("productName").textContent = product.NameWithoutBrand;
 
     const productImage = document.getElementById('productImage');
-    productImage.src = product.Image;
+    productImage.src = product.Images.PrimaryLarge;
     productImage.alt = product.NameWithoutBrand;
 
     const price = document.getElementById('productPrice');
@@ -36,9 +38,9 @@ function productDetailsTemplate(product) {
     if (finalPrice < originalPrice) {
         const discountPercent = Math.round(((originalPrice - finalPrice) / originalPrice) * 100);
         priceHtml = `
-            <span class="original-price">$${originalPrice.toFixed(2)}</span>
-            <span class="discount">Save ${discountPercent}%</span>
-            <span class="final-price">$${finalPrice.toFixed(2)}</span>
+            <p>Original Price: <span class="original-price">$${originalPrice.toFixed(2)}</span></p>
+            <p class="discount">Save ${discountPercent}%</p
+            <p><span class="final-price">Sale Price $${finalPrice.toFixed(2)}</span></p>
         `;
     } else {
         priceHtml = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
@@ -47,6 +49,6 @@ function productDetailsTemplate(product) {
     price.innerHTML = priceHtml;
 
     document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+    document.getElementById('productDescription').innerHTML = product.DescriptionHtmlSimple;
 
 }

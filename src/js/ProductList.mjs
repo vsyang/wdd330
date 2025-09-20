@@ -15,8 +15,8 @@ function productCardTemplate(product) {
     }
 
     return `<li class="product-card">
-        <a href="/product_pages/index.html?product=${product.Id}">
-            <img src="${product.Image}" alt="Image of ${product.NameWithoutBrand}">
+        <a href="/product_pages/index.html?id=${product.Id}">
+            <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.NameWithoutBrand}">
             <h3 class="card__brand">${product.Brand?.Name || "Unknown Brand"}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
             <p>Original Price: ${suggestedPrice} </P>  
@@ -37,7 +37,7 @@ export default class ProductList {
     // Finally, use the dataSource to get the list of products to work with. You could do that in the constructor or in an init() method. One advantage of the init method is that it will allow us to use async/await when calling the promise in getData().
     async init() {
         // fetch products for category
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         // render list in future
         this.renderList(list);
     }
