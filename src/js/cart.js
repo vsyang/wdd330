@@ -1,4 +1,7 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+
 
 function createCartBadge() {
   const cartLink = document.querySelector(".cart a");
@@ -48,10 +51,10 @@ function cartItemTemplate(item) {
   return `
 <li class="cart-card divider">
   <a href="#" class="cart-card__image">
-    <img src="${item.Image}" alt="${item.NameWithoutBrand}" />
+    <img src="${item.Image}" alt="${item.Name}" />
   </a>
   <a href="#">
-    <h2 class="card__name">${item.NameWithoutBrand}</h2>
+    <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors?.[0]?.ColorName ?? ""}</p>
   <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
@@ -65,8 +68,13 @@ export function addProductToCart(product) {
   if (existingItem) {
     existingItem.Quantity = (existingItem.Quantity || 1) + 1;
   } else {
-    product.Quantity = 1;
-    cartItems.push(product);
+    // Add Image property for cart display
+    const cartProduct = {
+      ...product,
+      Image: product.Images?.PrimaryMedium || product.Images?.PrimaryLarge || "",
+      Quantity: 1
+    };
+    cartItems.push(cartProduct);
   }
   setLocalStorage("so-cart", cartItems);
   refreshCartBadge();
@@ -80,10 +88,12 @@ export function refreshCartBadge() {
 }
 
 // After DOM is ready (and header likely injected), build badge + render cart
-function init() {
+async function init() {
+  renderCartContents();
+  await loadHeaderFooter();
   window.cartBadge = createCartBadge();
   refreshCartBadge();
-  renderCartContents();
+
   window.addEventListener("storage", refreshCartBadge);
 }
 

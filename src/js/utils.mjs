@@ -43,20 +43,31 @@ export function renderListWithTemplate(
     parentElement.innerHTML = "";
   }
 
-  if (safeList.length === 0) {
+  if (safeList.length === 0) 
     return;
-  }
+  
 
   const htmlStrings = safeList.map(template);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+// Fetch and return template HTML
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load template: ${path}`);
+  return res.text();
+}
 
+// Render template into target element
+export function renderWithTemplate(template, target) {
+  if (!target) return;
+  target.innerHTML = template;
+}
 //#9 Add a function to the utils.mjs named loadHeaderFooter
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../partials/header.html");
+  const headerTemplate = await loadTemplate("/partials/header.html");
   const headerDisplay = document.querySelector("#main-header");
   renderWithTemplate(headerTemplate, headerDisplay);
-  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
   const footerDisplay = document.querySelector("#main-footer");
   renderWithTemplate(footerTemplate, footerDisplay);
 }
