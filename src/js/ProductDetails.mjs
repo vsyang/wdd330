@@ -22,8 +22,6 @@ export default class ProductDetails {
 function productDetailsTemplate(product) {
     document.getElementById("productBrand").textContent = product.Brand.Name;
     document.getElementById("productName").textContent = product.NameWithoutBrand;
-    //document.querySelector("productBrand").textContent = product.Brand.Name;
-    //document.querySelector("productName").textContent = product.NameWithoutBrand;
 
     const productImage = document.getElementById('productImage');
     productImage.src = product.Images.PrimaryLarge;
