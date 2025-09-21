@@ -203,7 +203,11 @@ button {
   width: 100%;
 }
 
-
+.price-block {
+  text-align: center;
+  margin: 1rem 0;
+  
+}
 .final-price {
   font-size: 1.5em;
   font-weight: bold;
