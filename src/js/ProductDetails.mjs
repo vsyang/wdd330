@@ -38,11 +38,9 @@ function productDetailsTemplate(product) {
     if (finalPrice < originalPrice) {
         const discountPercent = Math.round(((originalPrice - finalPrice) / originalPrice) * 100);
         priceHtml = `
-        <div class="price-block">
             <p>Original Price: <span class="original-price">$${originalPrice.toFixed(2)}</span></p>
             <p class="discount">Save ${discountPercent}%</p
             <p><span class="final-price">Sale Price $${finalPrice.toFixed(2)}</span></p>
-            </div>
         `;
     } else {
         priceHtml = `<span class="final-price">$${finalPrice.toFixed(2)}</span>`;
