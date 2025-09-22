@@ -1,7 +1,6 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { getParam, loadHeaderFooter } from "./utils.mjs";
-import { refreshCartBadge } from "./cart.js";
+import { getParam, loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
 const category = getParam("category");
 const h2 = document.querySelector(".products h2");
@@ -17,7 +16,7 @@ const productList = new ProductList(category, dataSource, element);
 
 async function productListingInit() {
 	await loadHeaderFooter();
-	refreshCartBadge();
+	updateCartBadge();
 	productList.init();
 }
 

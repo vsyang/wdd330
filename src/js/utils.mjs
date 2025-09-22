@@ -71,3 +71,12 @@ export async function loadHeaderFooter() {
   const footerDisplay = document.querySelector("#main-footer");
   renderWithTemplate(footerTemplate, footerDisplay);
 }
+
+export function updateCartBadge() {
+  const cartBadge = document.getElementById("cart-count");
+  if (!cartBadge) return;
+  const cartItems = getLocalStorage("so-cart") || [];
+  const totalCount = cartItems.reduce((sum, item) => sum + (item.Quantity || 1), 0);
+  cartBadge.textContent = totalCount;
+  cartBadge.style.display = totalCount > 0 ? "inline-block" : "none";
+}

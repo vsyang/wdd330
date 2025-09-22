@@ -295,6 +295,32 @@ button {
   grid-column: 3;
 }
 
+.cart-total {
+  text-align: right;
+  font-size: 1.2em;
+  margin: 1em 0;
+}
+
+#cart-total-amount {
+  font-weight: bold;
+  color: green;
+}
+
+.cart-count {
+  position: absolute;
+  top: 6px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+  display: none;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
