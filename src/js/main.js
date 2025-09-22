@@ -1,9 +1,8 @@
-import { refreshCartBadge } from "./cart.js";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
 async function initMain() {
     await loadHeaderFooter();
-    refreshCartBadge();
+    updateCartBadge();
 }
 
 initMain();
