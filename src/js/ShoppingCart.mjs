@@ -5,13 +5,18 @@ function cartItemTemplate(item) {
   return `
 <li class="cart-card divider">
   <span class="cart-card__remove" data-id="${item.Id}" title="Remover">✖</span>
-  <a href="#" class="cart-card__image">
-    <img src="${item.Images.PrimarySmall}" alt="${item.Name}" />
+  <a href="/product_pages/index.html?id=${item.Id}" class="cart-card__image">
+    <img src="${item.Colors?.[item.SelectedColorIdx]?.ColorPreviewImageSrc || item.Images?.PrimarySmall}" alt="${item.Name}" />
   </a>
-  <a href="#">
+  <a href="/product_pages/index.html?id=${item.Id}">
     <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors?.[0]?.ColorName ?? ""}</p>
+  <p class="cart-card__color">
+    ${item.SelectedColor?.ColorName
+      || (typeof item.SelectedColorIdx === 'number' && item.Colors?.[item.SelectedColorIdx]?.ColorName)
+      || item.Colors?.[0]?.ColorName
+      || ""}
+  </p>
   <p class="cart-card__quantity">qty: 
     <input type="number" class="cart-qty-input" data-id="${item.Id}" min="1" value="${item.Quantity || 1}" style="width: 50px;">
   </p>
