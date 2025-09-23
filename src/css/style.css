@@ -1,3 +1,29 @@
+/* Swatches de cor na página de detalhes */
+.product__swatches {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.5em 0;
+}
+.swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border 0.2s;
+}
+.swatch.selected {
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color33);
+}
+.swatch img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
 :root {
   --font-body: Arial, Helvetica, sans-serif;
   --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
