@@ -80,3 +80,25 @@ export function updateCartBadge() {
   cartBadge.textContent = totalCount;
   cartBadge.style.display = totalCount > 0 ? "inline-block" : "none";
 }
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.getElementById("modal");
+  const msg = document.getElementById("modal-message");
+  const closeAlert = document.getElementById("modal-close");
+
+  msg.innerHTML = message;
+  modal.classList.remove("modal-hidden");
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  closeBtn.onclick = closeAlert();
+}
+
+export function closeAlert() {
+  const modal = document.getElementById("modal");
+  if (modal) {
+    modal.classList.add("modal-hidden");
+  }
+}

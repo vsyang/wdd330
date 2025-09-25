@@ -454,3 +454,24 @@ footer {
 .cart-card__remove:hover {
   color: #b71c1c;
 }
+
+/* Alert styles */
+#modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+
+#modal-content {
+  background: #f99950;
+  margin: 15% auto;
+  padding: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.modal.show{
+  display: block;
+}
