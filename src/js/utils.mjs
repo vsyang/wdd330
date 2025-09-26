@@ -86,13 +86,16 @@ export function alertMessage(message, scroll = true) {
   const msg = document.getElementById("modal-message");
   const closeAlert = document.getElementById("modal-close");
 
+  if (!modal || !msg || !closeBtn) return;
+
   msg.innerHTML = message;
   modal.classList.remove("modal-hidden");
 
   if (scroll) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  closeBtn.onclick = closeAlert();
+  closeBtn.onclick = null;
+  closeBtn.addEventListener("click", closeAlert, { once: true });
 }
 
 export function closeAlert() {
