@@ -1,20 +1,10 @@
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
-import { refreshCartBadge } from "./cart.js";
+import { loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
-document.addEventListener("DOMContentLoaded", async () => {
-    
-    const element = document.querySelector("#product-list");
-    if (!element) return;
+async function initMain() {
+    await loadHeaderFooter();
+    updateCartBadge();
+}
 
-    const dataSource = new ProductData("tents");
+initMain();
 
-    const productList = new ProductList("tents", dataSource, element);
-    try {
-        await productList.init();
-    } catch (err) {
-        console.error("Erro ao inicializar ProductList:", err);
-    }
 
-    refreshCartBadge();
-});

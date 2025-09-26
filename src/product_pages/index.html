@@ -1,33 +1,49 @@
 <!doctype html>
+
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sleep Outside | Product Details</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <script src="../js/product.js" type="module"></script>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<body>
-  <header class="divider">
-    <div class="logo">
-      <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-      <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
-    </div>
+    <title>Sleep Outside | North Face Talus 4-person tent</title>
 
-    <div class="cart">
-      <a href="../cart/index.html">
-      </a>
-    </div>
-  </header>
+    <link rel="stylesheet" href="../css/style.css" />
 
-  <main class="divider">
-    <h1>Products</h1>
-    <div id="product-list"></div>
-  </main>
+    <script src="../js/product.js" type="module"></script>
 
-  <footer>&copy; NOT a real business</footer>
-</body>
+  </head>
 
+  <body>
+    <header class="divider" id="main-header">
+      <div class="logo">
+        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
+      </div>
+    </header>
+
+    <main class="divider">
+      <section class="product-detail">
+        <h3 id="productBrand"></h3>
+        <h2 id="productName" class="'divider"></h2>
+
+
+        <div id="productCarousel" class="product-carousel"></div>
+
+        <p id="productPrice" class="product-card__price">$199.99</p>
+
+        <div id="productSwatches" class="product__swatches"></div>
+        
+        <p id="productColor" class="product__color">Golden Oak/Saffron Yellow</p>
+
+        <p id="productDescription" class="product__description"></p>
+
+        <div class="product-detail__add">
+          <button id="addToCart" data-id="">Add to Cart</button>
+        </div>
+      </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+  </body>
 </html>
