@@ -6,7 +6,7 @@ async function convertToJson(res) {
   // } else {
   //     throw new Error("Bad Response");
   // }
-  let jsonInfo = null;
+  let jsonInfo;
   try {
     jsonInfo = await res.json();
   } catch {
@@ -37,12 +37,12 @@ export default class ProductData {
 }
 
 export class ExternalServices {
-  async checkout(order) {
+  async checkout(orderSummary) {
     const url = `${baseURL}/checkout`;
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order)
+      body: JSON.stringify(orderSummary)
     });
     return convertToJson(res);
   }

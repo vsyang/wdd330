@@ -82,7 +82,7 @@ export function updateCartBadge() {
 }
 
 export function alertMessage(message, scroll = true) {
-  const alert = document.getElementById("modal");
+  const modal = document.getElementById("modal");
   const msg = document.getElementById("modal-message");
   const closeAlert = document.getElementById("modal-close");
 
@@ -92,7 +92,6 @@ export function alertMessage(message, scroll = true) {
   if (scroll) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-
   closeBtn.onclick = closeAlert();
 }
 
