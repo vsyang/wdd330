@@ -84,7 +84,7 @@ export function updateCartBadge() {
 export function alertMessage(message, scroll = true) {
   const modal = document.getElementById("modal");
   const msg = document.getElementById("modal-message");
-  const closeAlert = document.getElementById("modal-close");
+  const closeBtn = document.getElementById("modal-close");
 
   if (!modal || !msg || !closeBtn) return;
 
