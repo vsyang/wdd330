@@ -464,17 +464,17 @@ footer {
 }
 
 #modal-content {
-  background: #f99950;
+  background: #f9b988;
   margin: 15% auto;
   padding: 20px;
   width: 100%;
   text-align: left;
 }
 
-#modal.show{
-  display: block;
+#modal-message {
+  padding-bottom: 2rem;
 }
 
-#modal-hidden {
+.modal-hidden {
   display: none;
 }

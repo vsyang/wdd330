@@ -88,8 +88,8 @@ export function alertMessage(message, scroll = true) {
 
   if (!modal || !msg || !closeBtn) return;
 
-  msg.innerHTML = message;
   modal.classList.remove("modal-hidden");
+  msg.innerHTML = message;
 
   if (scroll) {
     window.scrollTo({ top: 0, behavior: "smooth" });
