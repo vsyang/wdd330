@@ -1,11 +1,11 @@
 import { getParam, updateCartBadge, loadHeaderFooter } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-const dataSource = new ProductData();
+const externalServices = new ExternalServices();
 const productId = getParam("id");
 
-const productDetails = new ProductDetails(productId, dataSource);
+const productDetails = new ProductDetails(productId, externalServices);
 
 async function init() {
   await loadHeaderFooter();
