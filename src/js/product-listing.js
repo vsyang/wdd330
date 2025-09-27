@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import { getParam, loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
@@ -10,7 +10,7 @@ if (h2 && category) {
 	h2.textContent = `Top Products: ${categoryName}`;
 }
 
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 const element = document.querySelector(".product-list");
 const productList = new ProductList(category, dataSource, element);
 

@@ -8,8 +8,8 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="../js/CheckoutProcess.mjs" type="module"></script>
+  <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/checkout.js" type="module" defer></script>
   </head>
 
   <body>
@@ -24,11 +24,49 @@
     </div>
 
     <main class="divider">
-      <section class="products">
+      <div class="checkout-container">
         <h2>Review & Place your Order</h2>
-      </section>
+        <form id="checkout-form">
+          <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">First Name:</label>
+            <input type="text" id="name" name="fname" required />
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lname" required />
+          </fieldset>
+          <fieldset>
+            <legend>Shipping Address</legend>
+            <label for="address">Street Address:</label>
+            <textarea id="address" name="street" required></textarea>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required />
+            <label for="state">State/Province:</label>
+            <input type="text" id="state" name="state" required />
+            <label for="zip">ZIP/Postal Code:</label>
+            <input type="text" id="zip" name="zip" required />
+          </fieldset>
+          <fieldset>
+            <legend>Payment Information</legend>
+            <label for="creditcard">Credit Card:</label>
+            <input type="text" id="creditcard" name="cardNumber" placeholder="Card Number" required />
+            <label for="expdate">Expiration Date:</label>
+            <input type="text" id="expdate" name="expiration" placeholder="MM/YY" required />
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="code" placeholder="CVV" required />
+          </fieldset>
+          <button type="submit" class="button button--primary">Place Order</button>
+        </form>
+        <aside class="order-summary">
+          <h2>Order Summary</h2>
+          <div class="summary-list">
+            <strong>Subtotal:</strong> $<span id="order-subtotal-amount"></span><br />
+            <strong>Tax (6%):</strong> $<span id="order-tax-amount"></span><br />
+            <strong>Shipping:</strong> $<span id="order-shipping-amount"></span><br />
+            <strong>Total:</strong> $<span id="order-total-amount"></span>
+          </div>
+        </aside>
+      </div>
     </main>
-
     <footer id="main-footer"></footer>
   </body>
 </html>

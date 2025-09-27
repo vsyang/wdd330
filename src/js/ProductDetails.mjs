@@ -53,7 +53,7 @@ function productDetailsTemplate(product, selectedColorIdx = 0, onColorSelect) {
     if (carouselContainer) {
         // Put together main image and extras
         const images = [product.Colors[selectedColorIdx]?.ColorPreviewImageSrc || product.Images.PrimaryLarge, 
-        ...(product.Images.ExtraImages.map(img => img.Src) || [])];
+        ...(product.Images.ExtraImages?.map(img => img.Src) || [])];
         let currentIdx = 0;
         // If it already exists, get the current index
         if (carouselContainer.dataset.currentIdx) {

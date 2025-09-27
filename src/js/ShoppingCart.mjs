@@ -59,6 +59,7 @@ export default class ShoppingCart {
     const cartTotalEl = document.getElementById("cart-total-amount");
     const cartTotal = this.cartItems.reduce((sum, item) => sum + (item.FinalPrice || 0) * (item.Quantity || 1), 0);
     const clearCartBtn = document.getElementById("clear-cart");
+    const checkoutBtn = document.getElementById("checkout");
 
     // Show/hide clear cart button
     if (clearCartBtn) {
@@ -66,6 +67,13 @@ export default class ShoppingCart {
       clearCartBtn.onclick = () => {
         this.clearCart();
         this.renderCartContents();
+      };
+    }
+
+    if (checkoutBtn) {
+      checkoutBtn.style.display = this.cartItems.length > 0 ? "inline-block" : "none";
+      checkoutBtn.onclick = () => {
+        window.location.href = "/checkout/index.html";
       };
     }
 
