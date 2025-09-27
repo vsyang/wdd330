@@ -80,3 +80,27 @@ export function updateCartBadge() {
   cartBadge.textContent = totalCount;
   cartBadge.style.display = totalCount > 0 ? "inline-block" : "none";
 }
+
+export function alertMessage(message, scroll = true) {
+  const modal = document.getElementById("modal");
+  const msg = document.getElementById("modal-message");
+  const closeBtn = document.getElementById("modal-close");
+
+  if (!modal || !msg || !closeBtn) return;
+
+  modal.classList.remove("modal-hidden");
+  msg.innerHTML = message;
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  closeBtn.onclick = null;
+  closeBtn.addEventListener("click", closeAlert, { once: true });
+}
+
+export function closeAlert() {
+  const modal = document.getElementById("modal");
+  if (modal) {
+    modal.classList.add("modal-hidden");
+  }
+}

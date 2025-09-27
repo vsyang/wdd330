@@ -550,3 +550,27 @@ footer {
     width: 100%;
   }
 }
+
+/* Alert styles */
+#modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+
+#modal-content {
+  background: #f9b988;
+  margin: 15% auto;
+  padding: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+#modal-message {
+  padding-bottom: 2rem;
+}
+
+.modal-hidden {
+  display: none;
+}

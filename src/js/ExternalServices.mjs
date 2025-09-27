@@ -7,6 +7,12 @@ function convertToJson(res) {
   } else {
     throw new Error("Bad Response");
   }
+
+  if (res.ok) {
+    return jsonInfo;
+  }
+
+  throw { name: "servicesError", message: jsonResponse };
 }
 
 export default class ExternalServices {
