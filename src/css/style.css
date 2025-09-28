@@ -46,8 +46,12 @@
   font-size: 2em;
   color: var(--dark-grey);
 }
-.carousel-arrow.left { left: -15%; }
-.carousel-arrow.right { right: -15%; }
+.carousel-arrow.left {
+  left: -15%;
+}
+.carousel-arrow.right {
+  right: -15%;
+}
 
 .product__swatches {
   display: flex;
@@ -166,7 +170,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -282,7 +286,6 @@ button {
 .price-block {
   text-align: center;
   margin: 1rem 0;
-  
 }
 .final-price {
   font-size: 1.5em;
@@ -540,12 +543,49 @@ footer {
   color: #b71c1c;
 }
 
+.alert {
+  background-color: #ffe6e6;
+  color: #b30000;
+  border: 1px solid #ff4d4d;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.alert--error {
+  background-color: #fdecea;
+  color: #b71c1c;
+  border: 1px solid #f5c2c7;
+}
+
+.alert--success {
+  background-color: #e8f5e9;
+  color: #256029;
+  border: 1px solid #a5d6a7;
+}
+
 @media (max-width: 700px) {
   .checkout-container {
     flex-direction: column;
     gap: 1em;
   }
-  .order-summary, .checkout-form {
+  .order-summary,
+  .checkout-form {
     min-width: unset;
     width: 100%;
   }
@@ -554,8 +594,11 @@ footer {
 /* Alert styles */
 #modal {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 }
 

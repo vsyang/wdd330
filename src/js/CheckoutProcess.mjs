@@ -1,4 +1,4 @@
-import  { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import  { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const externalServices = new ExternalServices();
@@ -51,7 +51,8 @@ export default class CheckoutProcess {
     }
 
     // Calculate total including tax and shipping and call display function
-    calculateOrderTotal(){
+    calculateOrderTotal() {
+        this.shipping = 0;    //reset shipping
         this.tax = (this.itemTotal * 0.06);
         this.cartItems.forEach(element => {
             this.shipping += (element.Quantity * 2.00);
@@ -88,6 +89,13 @@ export default class CheckoutProcess {
         // Validate form
         if (!formElement) return;
 
+        //Trigger HTML2 validation check
+        if (!formElement.checkValidity()) {
+            formElement.reportValidity();
+            return;
+        }
+
+
         // Gather form data
         const order = formatDataToJSON(formElement);
 
@@ -112,8 +120,13 @@ export default class CheckoutProcess {
             // Feel free to remove it if not needed
             console.log("Checkout successful:", response);
             setLocalStorage("so-cart", []);
+            // redirect to success page
+            window.location.href = "./success.html";
         } catch (error) {
             console.error("Checkout failed:", error);
-        }
+            alertMessage(
+                error.messages || [error.message] || ["There was an issue processing your order. Please try again."]
+            );
+            }
     }
 }

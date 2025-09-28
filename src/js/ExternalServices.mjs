@@ -1,18 +1,26 @@
-const baseURL = import.meta.env.VITE_SERVER_URL
+const baseURL = import.meta.env.VITE_SERVER_URL;
 
 // Helper function to convert fetch response to JSON or throw error
-function convertToJson(res) {
+async function convertToJson(res) {
+  const data = await res.json();
+
   if (res.ok) {
-    return res.json();
+    return data;
   } else {
-    throw new Error("Bad Response");
-  }
+    let messages;
+    if (typeof data === "object" && !Array.isArray(data)) {
+      // Convert {"cardNumber":"Invalid", "expiration":"Invalid"} 
+      // into ["Invalid", "Invalid"]
+      messages = Object.values(data);
+    } else {
+      messages = [data.message || data.error || JSON.stringify(data)];
+    }
 
-  if (res.ok) {
-    return jsonInfo;
+    throw {
+      name: "servicesError",
+      messages
+    };
   }
-
-  throw { name: "servicesError", message: jsonResponse };
 }
 
 export default class ExternalServices {
@@ -20,11 +28,11 @@ export default class ExternalServices {
 
   // Fetch products by category
   async getData(category) {
-      const response = await fetch(`${baseURL}products/search/${category}`);
-      const data = await convertToJson(response);
-      return data.Result;
-    } 
-  
+    const response = await fetch(`${baseURL}products/search/${category}`);
+    const data = await convertToJson(response);
+    return data.Result;
+  }
+
   // Fetch product details by ID
   async findProductById(id) {
     const response = await fetch(`${baseURL}product/${id}`);
