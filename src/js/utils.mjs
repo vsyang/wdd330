@@ -82,7 +82,36 @@ export function updateCartBadge() {
 }
 
 export function alertMessage(message, scroll = true) {
-  const modal = document.getElementById("modal");
+  const main = document.querySelector("main");
+  if (!main) return;
+
+  //remove any existing alert
+  const oldAlerts = main.querySelectorAll(".alert");
+  oldAlerts.forEach(a => a.remove());
+
+  const messages = Array.isArray(message) ? message : [message];
+
+  messages.forEach(msg => {
+    const alert = document.createElement("div");
+    alert.classList.add("alert");
+    alert.innerHTML = `
+      <p>${msg}</p>
+      <button class="alert-close" aria-label="close">&times;</button>
+    `;
+
+    main.insertBefore(alert, main.firstChild);
+
+    // close button
+    alert.querySelector(".alert-close").addEventListener("click", () => {
+      alert.remove();
+    });
+  });
+
+  // scroll to top if needed
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  /*const modal = document.getElementById("modal");
   const msg = document.getElementById("modal-message");
   const closeBtn = document.getElementById("modal-close");
 
@@ -102,5 +131,5 @@ export function closeAlert() {
   const modal = document.getElementById("modal");
   if (modal) {
     modal.classList.add("modal-hidden");
-  }
+  } */
 }
